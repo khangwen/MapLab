@@ -4,11 +4,11 @@
 class Map
 {
 private:
-	Location *_currentLocation = nullptr;
+	
 public:
 	Map(std::string startingLocationName);
 	~Map();
 
-	
+	Location *_currentLocation = nullptr;
 };
 
