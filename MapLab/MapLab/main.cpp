@@ -51,20 +51,69 @@ int main()
 void GoNorth(Map & map)
 {
 	system("cls");
-	Location newLocation = Location("North of Home");
-	map.CurrentLocation = &newLocation;
+	if (map.CurrentLocation->North == nullptr) {
+		cout << "You haven't been here before. Enter a Name: ";
+		string newName;
+		cin >> newName;
+
+		map.CurrentLocation->North = new Location(newName);
+		map.CurrentLocation->North->South = map.CurrentLocation;
+	}
+
+	map.CurrentLocation = map.CurrentLocation->North;
+	cout << "You are now at " + map.CurrentLocation->GetLocationInfo() << endl;
+	map.Path.push(map.CurrentLocation);
 }
 
 void GoEast(Map & map)
 {
+	system("cls");
+	if (map.CurrentLocation->East == nullptr) {
+		cout << "You haven't been here before. Enter a Name: ";
+		string newName;
+		cin >> newName;
+
+		map.CurrentLocation->East = new Location(newName);
+		map.CurrentLocation->East->West = map.CurrentLocation;
+	}
+
+	map.CurrentLocation = map.CurrentLocation->East;
+	cout << "You are now at " + map.CurrentLocation->GetLocationInfo() << endl;
+	map.Path.push(map.CurrentLocation);
 }
 
 void GoSouth(Map & map)
 {
+	system("cls");
+	if (map.CurrentLocation->South == nullptr) {
+		cout << "You haven't been here before. Enter a Name: ";
+		string newName;
+		cin >> newName;
+
+		map.CurrentLocation->South = new Location(newName);
+		map.CurrentLocation->South->North = map.CurrentLocation;
+	}
+
+	map.CurrentLocation = map.CurrentLocation->South;
+	cout << "You are now at " + map.CurrentLocation->GetLocationInfo() << endl;
+	map.Path.push(map.CurrentLocation);
 }
 
 void GoWest(Map & map)
 {
+	system("cls");
+	if (map.CurrentLocation->West == nullptr) {
+		cout << "You haven't been here before. Enter a Name: ";
+		string newName;
+		cin >> newName;
+
+		map.CurrentLocation->West = new Location(newName);
+		map.CurrentLocation->West->East = map.CurrentLocation;
+	}
+
+	map.CurrentLocation = map.CurrentLocation->West;
+	cout << "You are now at " + map.CurrentLocation->GetLocationInfo() << endl;
+	map.Path.push(map.CurrentLocation);
 }
 
 void PathToHome(Map & map)
