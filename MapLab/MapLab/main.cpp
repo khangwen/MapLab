@@ -144,4 +144,28 @@ void GoWest(Map & map)
 
 void PathToHome(Map & map)
 {
+	std::stack<Location *> toHomePath;
+	toHomePath = map.Path;
+
+	cout << "You are currently at " + map.CurrentLocation->GetLocationInfo() << endl;
+
+	while (toHomePath.empty == false)
+	{
+		int currentX = toHomePath.top()->getX;
+		int currentY = toHomePath.top()->getY;
+
+		toHomePath.pop();
+
+		int oldX = toHomePath.top()->getX;
+		int oldY = toHomePath.top()->getY;
+
+		if (oldX < currentX)
+			cout << "Go East" << endl;
+		else if (oldX > currentX)
+			cout << "Go West" << endl;
+		else if (oldY < currentY)
+			cout << "Go South" << endl;
+		else if (oldY > currentY)
+			cout << "Go North" << endl;
+	}
 }
