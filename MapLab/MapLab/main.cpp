@@ -57,9 +57,12 @@ void GoNorth(Map & map)
 		int newX = currentX;
 		int newY = currentY + 1;
 
-		cout << "You haven't been here before. Enter a Name: ";
 		string newName;
-		cin >> newName;
+		if (newX != 0 & newY != 0)
+		{
+			cout << "You haven't been here before. Enter a Name: ";
+			cin >> newName;
+		}
 
 		map.CurrentLocation->North = new Location(newName, newX, newY);
 		map.CurrentLocation->North->South = map.CurrentLocation;
@@ -81,9 +84,12 @@ void GoEast(Map & map)
 		int newX = currentX + 1;
 		int newY = currentY;
 
-		cout << "You haven't been here before. Enter a Name: ";
 		string newName;
-		cin >> newName;
+		if (newX != 0 & newY != 0)
+		{
+			cout << "You haven't been here before. Enter a Name: ";
+			cin >> newName;
+		}
 
 		map.CurrentLocation->East = new Location(newName, newX, newY);
 		map.CurrentLocation->East->West = map.CurrentLocation;
@@ -105,9 +111,12 @@ void GoSouth(Map & map)
 		int newX = currentX;
 		int newY = currentY - 1;
 
-		cout << "You haven't been here before. Enter a Name: ";
 		string newName;
-		cin >> newName;
+		if (newX != 0 & newY != 0)
+		{
+			cout << "You haven't been here before. Enter a Name: ";
+			cin >> newName;
+		}
 
 		map.CurrentLocation->South = new Location(newName, newX, newY);
 		map.CurrentLocation->South->North = map.CurrentLocation;
@@ -129,9 +138,12 @@ void GoWest(Map & map)
 		int newX = currentX - 1;
 		int newY = currentY;
 
-		cout << "You haven't been here before. Enter a Name: ";
 		string newName;
-		cin >> newName;
+		if (newX != 0 & newY != 0)
+		{
+			cout << "You haven't been here before. Enter a Name: ";
+			cin >> newName;
+		}
 
 		map.CurrentLocation->West = new Location(newName, newX, newY);
 		map.CurrentLocation->West->East = map.CurrentLocation;
@@ -149,20 +161,25 @@ void PathToHome(Map & map)
 
 	cout << "You are currently at " + map.CurrentLocation->GetLocationInfo() << endl;
 
-	while (toHomePath.empty == false)
+	while (toHomePath.empty() == false)
 	{
-		int currentX = toHomePath.top()->getX;
-		int currentY = toHomePath.top()->getY;
+		int currentX = toHomePath.top()->getX();
+		int currentY = toHomePath.top()->getY();
+		int oldX = 0;
+		int oldY = 0;
 
 		toHomePath.pop();
 
-		int oldX = toHomePath.top()->getX;
-		int oldY = toHomePath.top()->getY;
+		if (toHomePath.empty() == false)
+		{
+			oldX = toHomePath.top()->getX();
+			oldY = toHomePath.top()->getY();
+		}
 
 		if (oldX < currentX)
-			cout << "Go East" << endl;
-		else if (oldX > currentX)
 			cout << "Go West" << endl;
+		else if (oldX > currentX)
+			cout << "Go East" << endl;
 		else if (oldY < currentY)
 			cout << "Go South" << endl;
 		else if (oldY > currentY)
