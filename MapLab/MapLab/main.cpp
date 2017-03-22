@@ -58,7 +58,7 @@ void GoNorth(Map & map)
 		int newY = currentY + 1;
 
 		string newName;
-		if (newX != 0 & newY != 0)
+		if (newX != 0 || newY != 0)
 		{
 			cout << "You haven't been here before. Enter a Name: ";
 			cin >> newName;
@@ -66,6 +66,12 @@ void GoNorth(Map & map)
 
 		map.CurrentLocation->North = new Location(newName, newX, newY);
 		map.CurrentLocation->North->South = map.CurrentLocation;
+
+		if (newX == 0 && newY == 0)
+		{
+			while (map.Path.empty() == false)
+				map.Path.pop();
+		}
 	}
 
 	map.CurrentLocation = map.CurrentLocation->North;
@@ -85,7 +91,7 @@ void GoEast(Map & map)
 		int newY = currentY;
 
 		string newName;
-		if (newX != 0 & newY != 0)
+		if (newX != 0 || newY != 0)
 		{
 			cout << "You haven't been here before. Enter a Name: ";
 			cin >> newName;
@@ -93,6 +99,12 @@ void GoEast(Map & map)
 
 		map.CurrentLocation->East = new Location(newName, newX, newY);
 		map.CurrentLocation->East->West = map.CurrentLocation;
+
+		if (newX == 0 && newY == 0)
+		{
+			while (map.Path.empty() == false)
+				map.Path.pop();
+		}
 	}
 
 	map.CurrentLocation = map.CurrentLocation->East;
@@ -112,7 +124,7 @@ void GoSouth(Map & map)
 		int newY = currentY - 1;
 
 		string newName;
-		if (newX != 0 & newY != 0)
+		if (newX != 0 || newY != 0)
 		{
 			cout << "You haven't been here before. Enter a Name: ";
 			cin >> newName;
@@ -120,6 +132,12 @@ void GoSouth(Map & map)
 
 		map.CurrentLocation->South = new Location(newName, newX, newY);
 		map.CurrentLocation->South->North = map.CurrentLocation;
+
+		if (newX == 0 && newY == 0)
+		{
+			while (map.Path.empty() == false)
+				map.Path.pop();
+		}
 	}
 
 	map.CurrentLocation = map.CurrentLocation->South;
@@ -139,7 +157,7 @@ void GoWest(Map & map)
 		int newY = currentY;
 
 		string newName;
-		if (newX != 0 & newY != 0)
+		if (newX != 0 || newY != 0)
 		{
 			cout << "You haven't been here before. Enter a Name: ";
 			cin >> newName;
@@ -147,6 +165,12 @@ void GoWest(Map & map)
 
 		map.CurrentLocation->West = new Location(newName, newX, newY);
 		map.CurrentLocation->West->East = map.CurrentLocation;
+
+		if (newX == 0 && newY == 0)
+		{
+			while (map.Path.empty() == false)
+				map.Path.pop();
+		}
 	}
 
 	map.CurrentLocation = map.CurrentLocation->West;
