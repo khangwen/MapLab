@@ -26,13 +26,11 @@ int main()
 		cout << "4) Go South" << endl;
 		cout << "5) Go West" << endl;
 		cout << "6) Path to Home" << endl;
-		cout << "0) Exit" << endl;
 		cin >> choice;
 
 		switch (choice)
 		{
-		case 0: break;
-		case 1: cout << map.CurrentLocation->GetLocationInfo() << endl;
+		case 1: cout << map.CurrentLocation->GetLocationInfo() << endl; break;
 		case 2: GoNorth(map); break;
 		case 3: GoEast(map); break;
 		case 4: GoSouth(map); break;
@@ -50,13 +48,20 @@ int main()
 
 void GoNorth(Map & map)
 {
+	int currentX = map.CurrentLocation->getX();
+	int currentY = map.CurrentLocation->getY();
+
 	system("cls");
-	if (map.CurrentLocation->North == nullptr) {
+	if (map.CurrentLocation->North == nullptr)
+	{
+		int newX = currentX;
+		int newY = currentY + 1;
+
 		cout << "You haven't been here before. Enter a Name: ";
 		string newName;
 		cin >> newName;
 
-		map.CurrentLocation->North = new Location(newName);
+		map.CurrentLocation->North = new Location(newName, newX, newY);
 		map.CurrentLocation->North->South = map.CurrentLocation;
 	}
 
@@ -67,13 +72,20 @@ void GoNorth(Map & map)
 
 void GoEast(Map & map)
 {
+	int currentX = map.CurrentLocation->getX();
+	int currentY = map.CurrentLocation->getY();
+
 	system("cls");
-	if (map.CurrentLocation->East == nullptr) {
+	if (map.CurrentLocation->East == nullptr)
+	{
+		int newX = currentX + 1;
+		int newY = currentY;
+
 		cout << "You haven't been here before. Enter a Name: ";
 		string newName;
 		cin >> newName;
 
-		map.CurrentLocation->East = new Location(newName);
+		map.CurrentLocation->East = new Location(newName, newX, newY);
 		map.CurrentLocation->East->West = map.CurrentLocation;
 	}
 
@@ -84,13 +96,20 @@ void GoEast(Map & map)
 
 void GoSouth(Map & map)
 {
+	int currentX = map.CurrentLocation->getX();
+	int currentY = map.CurrentLocation->getY();
+
 	system("cls");
-	if (map.CurrentLocation->South == nullptr) {
+	if (map.CurrentLocation->South == nullptr) 
+	{
+		int newX = currentX;
+		int newY = currentY - 1;
+
 		cout << "You haven't been here before. Enter a Name: ";
 		string newName;
 		cin >> newName;
 
-		map.CurrentLocation->South = new Location(newName);
+		map.CurrentLocation->South = new Location(newName, newX, newY);
 		map.CurrentLocation->South->North = map.CurrentLocation;
 	}
 
@@ -101,13 +120,20 @@ void GoSouth(Map & map)
 
 void GoWest(Map & map)
 {
+	int currentX = map.CurrentLocation->getX();
+	int currentY = map.CurrentLocation->getY();
+
 	system("cls");
-	if (map.CurrentLocation->West == nullptr) {
+	if (map.CurrentLocation->West == nullptr)
+	{
+		int newX = currentX - 1;
+		int newY = currentY;
+
 		cout << "You haven't been here before. Enter a Name: ";
 		string newName;
 		cin >> newName;
 
-		map.CurrentLocation->West = new Location(newName);
+		map.CurrentLocation->West = new Location(newName, newX, newY);
 		map.CurrentLocation->West->East = map.CurrentLocation;
 	}
 
