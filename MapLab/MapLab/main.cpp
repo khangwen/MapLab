@@ -36,6 +36,7 @@ int main()
 		case 4: GoSouth(map); break;
 		case 5: GoWest(map); break;
 		case 6: PathToHome(map); break;
+		case 0: choice = 0; break;
 		default: cout << "Please enter a valid option" << endl; break;
 		}
 
@@ -56,16 +57,32 @@ void GoNorth(Map & map)
 	{
 		int newX = currentX;
 		int newY = currentY + 1;
+		auto existing = map.LookupLocation(newX, newY);
 
-		string newName;
-		if (newX != 0 || newY != 0)
+		if (existing == nullptr)
 		{
-			cout << "You haven't been here before. Enter a Name: ";
-			cin >> newName;
+			string newName;
+			if (newX != 0 || newY != 0)
+			{
+				cout << "You haven't been here before. Enter a Name: ";
+				cin >> newName;
+			}
+
+			map.CurrentLocation->North = new Location(newName, newX, newY);
+			map.CurrentLocation->North->South = map.CurrentLocation;
+			map.setMapLookUp(map.CurrentLocation->North, newX, newY);
+
+			map.CurrentLocation = map.CurrentLocation->North;
+			cout << "You are now at " + map.CurrentLocation->GetLocationInfo() << endl;
+			map.Path.push(map.CurrentLocation);
 		}
 
-		map.CurrentLocation->North = new Location(newName, newX, newY);
-		map.CurrentLocation->North->South = map.CurrentLocation;
+		else
+		{
+			map.CurrentLocation = existing;
+			map.Path.push(existing);
+			cout << "You are now at " + existing->GetLocationInfo() << endl;
+		}
 
 		if (newX == 0 && newY == 0)
 		{
@@ -73,10 +90,6 @@ void GoNorth(Map & map)
 				map.Path.pop();
 		}
 	}
-
-	map.CurrentLocation = map.CurrentLocation->North;
-	cout << "You are now at " + map.CurrentLocation->GetLocationInfo() << endl;
-	map.Path.push(map.CurrentLocation);
 }
 
 void GoEast(Map & map)
@@ -89,16 +102,32 @@ void GoEast(Map & map)
 	{
 		int newX = currentX + 1;
 		int newY = currentY;
+		auto existing = map.LookupLocation(newX, newY);
 
-		string newName;
-		if (newX != 0 || newY != 0)
+		if (existing == nullptr)
 		{
-			cout << "You haven't been here before. Enter a Name: ";
-			cin >> newName;
+			string newName;
+			if (newX != 0 || newY != 0)
+			{
+				cout << "You haven't been here before. Enter a Name: ";
+				cin >> newName;
+			}
+
+			map.CurrentLocation->East = new Location(newName, newX, newY);
+			map.CurrentLocation->East->West = map.CurrentLocation;
+			map.setMapLookUp(map.CurrentLocation->North, newX, newY);
+
+			map.CurrentLocation = map.CurrentLocation->East;
+			cout << "You are now at " + map.CurrentLocation->GetLocationInfo() << endl;
+			map.Path.push(map.CurrentLocation);
 		}
 
-		map.CurrentLocation->East = new Location(newName, newX, newY);
-		map.CurrentLocation->East->West = map.CurrentLocation;
+		else
+		{
+			map.CurrentLocation = existing;
+			map.Path.push(existing);
+			cout << "You are now at " + existing->GetLocationInfo() << endl;
+		}
 
 		if (newX == 0 && newY == 0)
 		{
@@ -106,10 +135,6 @@ void GoEast(Map & map)
 				map.Path.pop();
 		}
 	}
-
-	map.CurrentLocation = map.CurrentLocation->East;
-	cout << "You are now at " + map.CurrentLocation->GetLocationInfo() << endl;
-	map.Path.push(map.CurrentLocation);
 }
 
 void GoSouth(Map & map)
@@ -118,20 +143,36 @@ void GoSouth(Map & map)
 	int currentY = map.CurrentLocation->getY();
 
 	system("cls");
-	if (map.CurrentLocation->South == nullptr) 
+	if (map.CurrentLocation->South == nullptr)
 	{
 		int newX = currentX;
 		int newY = currentY - 1;
+		auto existing = map.LookupLocation(newX, newY);
 
-		string newName;
-		if (newX != 0 || newY != 0)
+		if (existing == nullptr)
 		{
-			cout << "You haven't been here before. Enter a Name: ";
-			cin >> newName;
+			string newName;
+			if (newX != 0 || newY != 0)
+			{
+				cout << "You haven't been here before. Enter a Name: ";
+				cin >> newName;
+			}
+
+			map.CurrentLocation->South = new Location(newName, newX, newY);
+			map.CurrentLocation->South->North = map.CurrentLocation;
+			map.setMapLookUp(map.CurrentLocation->North, newX, newY);
+
+			map.CurrentLocation = map.CurrentLocation->South;
+			cout << "You are now at " + map.CurrentLocation->GetLocationInfo() << endl;
+			map.Path.push(map.CurrentLocation);
 		}
 
-		map.CurrentLocation->South = new Location(newName, newX, newY);
-		map.CurrentLocation->South->North = map.CurrentLocation;
+		else
+		{
+			map.CurrentLocation = existing;
+			map.Path.push(existing);
+			cout << "You are now at " + existing->GetLocationInfo() << endl;
+		}
 
 		if (newX == 0 && newY == 0)
 		{
@@ -139,10 +180,6 @@ void GoSouth(Map & map)
 				map.Path.pop();
 		}
 	}
-
-	map.CurrentLocation = map.CurrentLocation->South;
-	cout << "You are now at " + map.CurrentLocation->GetLocationInfo() << endl;
-	map.Path.push(map.CurrentLocation);
 }
 
 void GoWest(Map & map)
@@ -155,16 +192,32 @@ void GoWest(Map & map)
 	{
 		int newX = currentX - 1;
 		int newY = currentY;
+		auto existing = map.LookupLocation(newX, newY);
 
-		string newName;
-		if (newX != 0 || newY != 0)
+		if (existing == nullptr)
 		{
-			cout << "You haven't been here before. Enter a Name: ";
-			cin >> newName;
+			string newName;
+			if (newX != 0 || newY != 0)
+			{
+				cout << "You haven't been here before. Enter a Name: ";
+				cin >> newName;
+			}
+
+			map.CurrentLocation->West = new Location(newName, newX, newY);
+			map.CurrentLocation->West->East = map.CurrentLocation;
+			map.setMapLookUp(map.CurrentLocation->North, newX, newY);
+
+			map.CurrentLocation = map.CurrentLocation->West;
+			cout << "You are now at " + map.CurrentLocation->GetLocationInfo() << endl;
+			map.Path.push(map.CurrentLocation);
 		}
 
-		map.CurrentLocation->West = new Location(newName, newX, newY);
-		map.CurrentLocation->West->East = map.CurrentLocation;
+		else
+		{
+			map.CurrentLocation = existing;
+			map.Path.push(existing);
+			cout << "You are now at " + existing->GetLocationInfo() << endl;
+		}
 
 		if (newX == 0 && newY == 0)
 		{
@@ -172,10 +225,6 @@ void GoWest(Map & map)
 				map.Path.pop();
 		}
 	}
-
-	map.CurrentLocation = map.CurrentLocation->West;
-	cout << "You are now at " + map.CurrentLocation->GetLocationInfo() << endl;
-	map.Path.push(map.CurrentLocation);
 }
 
 void PathToHome(Map & map)
